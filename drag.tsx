@@ -1,19 +1,22 @@
-import { TextField } from '@mui/material';
+ import { TextField } from '@mui/material';
 import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.css"
+ 
 const DragAndDropExample: React.FC = () => {
     const [inputValue, setInputValue] = useState<string>('');
     const [items, setItems] = useState<string[]>([]);
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-    const handleInputChange = (event: any) => {
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
     };
-
     const handleAddItem = () => {
         if (inputValue.trim() === '') return;
+
+        // Add the new item to the 'items' array
+        setItems([...items, inputValue]);
         setInputValue('');
-    }; 
+    };
 
     const handleDrop = (event: any, target:  'right'  | 'left'  ) => {
         event.preventDefault();
@@ -37,13 +40,14 @@ const DragAndDropExample: React.FC = () => {
         <div>
             <h2 style={{color:"green",textDecoration:"underline"}}>
                 Drag and Drop</h2>
-            <div className='mt-5' >
-                <TextField
-                 type="text" 
-                 value={inputValue}
-                 label='Enter Name'
-                 onChange={handleInputChange} /> &nbsp;  &nbsp;
-                <button onClick={handleAddItem} className='btn btn-outline-primary mt-2 '>Add Item</button>
+                <div className='mt-5'>
+            <TextField
+                type="text"
+                value={inputValue}
+                label='Enter Name'
+                 onChange={handleInputChange}
+            /> &nbsp; &nbsp;
+            <button onClick={handleAddItem} className='btn btn-outline-primary'>Add Item</button>
             </div>
             <div className='d-flex mt-5' style={{ display: 'flex', marginTop: '20px' }}>
                 <div
@@ -86,3 +90,5 @@ const DragAndDropExample: React.FC = () => {
   };
 
 export default DragAndDropExample;
+                
+           
